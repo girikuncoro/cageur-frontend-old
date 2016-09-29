@@ -1,0 +1,158 @@
+<h1 class="page-title">Dashboard <small><small>Analytics</small></small></h1>
+
+<div class="row">
+
+  <div class="col-lg-8 col-xs-12">
+    <section class="widget" widget>
+      <header>
+        <h5>
+          <span class="fw-semi-bold">D3</span> Charts
+        </h5>
+        <div class="widget-controls">
+          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <p class="fs-mini text-muted">
+          This is a very young collection of components, with the goal of keeping these components
+          very customizeable.
+        </p>
+        <div nvd3-chart [chart]="nvd32Chart" [datum]="nvd32Data">
+          <svg></svg>
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <div class="col-lg-4 col-xs-12">
+    <section class="widget" widget>
+      <header>
+        <h5>
+          Morris <span class="fw-semi-bold">Donut Charts</span>
+        </h5>
+        <div class="widget-controls">
+          <a data-widgster="expand" title="Expand" href="#"><i class="glyphicon glyphicon-chevron-up"></i></a>
+          <a data-widgster="collapse" title="Collapse" href="#"><i class="glyphicon glyphicon-chevron-down"></i></a>
+          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <div morris-chart [type]="'donut'" [height]="180" [options]="morris3Options">
+        </div>
+        <p class="fs-mini text-muted">
+          Donuts a great for representing some parted information like traffice sources,
+          disk partitions, etc.
+          This really couldn't be easier. Create a Donut chart using <code>Morris.Donut(options)</code>,
+          with only few options.
+        </p>
+      </div>
+    </section>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-lg-4 col-xs-12">
+    <section widget class="widget">
+      <!-- .widget>header is generally a place for widget title and widget controls. see .widget in _base.scss -->
+      <header>
+        <h6>
+          USERBASE GROWTH
+        </h6>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <div class="stats-row">
+          <div class="stat-item">
+            <h6 class="name fs-sm">Overall Growth</h6>
+            <p class="value">76.38%</p>
+          </div>
+          <div class="stat-item">
+            <h6 class="name fs-sm">Montly</h6>
+            <p class="value">10.38%</p>
+          </div>
+          <div class="stat-item">
+            <h6 class="name fs-sm">24h</h6>
+            <p class="value">3.38%</p>
+          </div>
+        </div>
+        <div class="bg-gray-lighter progress-bar">
+          <progress class="progress progress-xs progress-success" value="100" max="100" style="width: 60%"></progress>
+        </div>
+        <p>
+          <small><span class="circle bg-warning"><i class="glyphicon glyphicon-chevron-up"></i></span></small>
+          <span class="fw-semi-bold">17% higher</span>
+          than last month</p>
+      </div>
+    </section>
+  </div>
+  <div class="col-lg-4 col-xs-12">
+    <section widget class="widget">
+      <header>
+        <h6>
+          TRAFFIC VALUES
+        </h6>
+        <div class="widget-controls">
+          <a href="#"><i class="glyphicon glyphicon-cog"></i></a>
+          <a href="#" data-widgster="close"><i class="glyphicon glyphicon-remove"></i></a>
+        </div>
+      </header>
+      <div class="widget-body">
+        <div class="stats-row">
+          <div class="stat-item">
+            <h6 class="name fs-sm">Overall Values</h6>
+            <p class="value">17 567 318</p>
+          </div>
+          <div class="stat-item">
+            <h6 class="name fs-sm">Montly</h6>
+            <p class="value">55 120</p>
+          </div>
+          <div class="stat-item">
+            <h6 class="name fs-sm">24h</h6>
+            <p class="value">9 695</p>
+          </div>
+        </div>
+        <div class="bg-gray-lighter progress-bar">
+          <progress class="progress progress-xs progress-danger" value="100" max="100" style="width: 60%"></progress>
+        </div>
+        <p>
+          <small><span class="circle bg-warning"><i class="fa fa-chevron-down"></i></span></small>
+          <span class="fw-semi-bold">8% lower</span>
+          than last month
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div class="col-lg-4 col-xs-12">
+    <section class="widget bg-primary text-white">
+      <div class="widget-body clearfix">
+        <div class="row flex-nowrap">
+          <div class="col-xs-3">
+            <span class="widget-icon">
+              <i class="glyphicon glyphicon-globe"></i>
+            </span>
+          </div>
+          <div class="col-xs-9">
+            <h6 class="no-margin">USERS GROWTH</h6>
+            <p class="h2 no-margin fw-normal">4,332</p>
+          </div>
+        </div>
+        <div class="row flex-nowrap">
+          <div class="col-xs-6">
+            <h6 class="no-margin">Registrations</h6>
+            <p class="value5">+830</p>
+          </div>
+          <div class="col-xs-6">
+            <h6 class="no-margin">Bounce Rate</h6>
+            <p class="value5">4.5%</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

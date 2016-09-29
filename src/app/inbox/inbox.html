@@ -1,0 +1,27 @@
+<ol class="breadcrumb">
+  <li>YOU ARE HERE</li>
+  <li class="active">SMS</li>
+</ol>
+<div class="alert alert-warning alert-sm pull-right no-margin animated bounceInLeft hide" id="app-alert">
+  <button type="button" class="ml-lg close" data-dismiss="alert" aria-hidden="true">×</button>
+  Hey! This is a <span class="fw-semi-bold">real app</span> with CRUD and Search functions. Have fun!
+</div>
+<h1 class="page-title">SMS - <span class="fw-semi-bold">Reminder</span></h1>
+<div class="row" sn-inbox-app>
+  <div class="col-lg-3 col-xl-2 col-xs-12">
+    <a class="btn btn-danger btn-block" id="compose-btn" (click)="handleComposeBtn()">Compose</a>
+    <ul class="nav nav-pills nav-stacked nav-email-folders mt" id="folders-list">
+      <li class="nav-item active">
+        <a class="nav-link" (click)="setFolderName('Sent Mail')">
+          <span class="label label-pill label-default pull-xs-right">2</span>
+          Sent SMS
+        </a>
+      </li>
+      <li class="nav-item"><a class="nav-link" (click)="handleCalendarBtn()">Calendar</a></li>
+    </ul>
+  </div>
+  <div *ngIf="mailListShow" mail-list [folderName]="currentFolderName" (replyMail)="onReplyMail($event)" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailFormShow" mail-form (backToMailList)="changeEmailComponents('mailList')" [message]="repliedMessage" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailCalendarShow" mail-calendar (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailDetailShow" mail-detail (replyMessage)="handleComposeBtn($event)" [mail]="currentMail" (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12"></div>
+</div>
