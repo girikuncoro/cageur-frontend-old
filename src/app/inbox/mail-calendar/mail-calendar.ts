@@ -1,10 +1,12 @@
 import {Component} from '@angular/core';
 import {Output, Input} from '@angular/core';
 import {EventEmitter} from '@angular/core';
+import { ExtraCalendar } from '../../extra-calendar/extra-calendar';
 
 @Component({
   selector: '[mail-calendar]',
   template: require('./mail-calendar.html'),
+  directives: [ExtraCalendar]
 })
 
 export class MailCalendar {

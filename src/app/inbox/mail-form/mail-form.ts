@@ -10,13 +10,14 @@ import {EventEmitter} from '@angular/core';
 export class MailForm {
   @Output() backToMailList = new EventEmitter();
   @Input() message: any;
+  @Input() component: string;
 
   sender: string = '';
   subject: string = '';
   body: string = 'There are no implementations of Wysiwyg editors in Angular 2 version yet. So we hope it will appear soon.';
 
   onToBack(): void {
-    this.backToMailList.emit('');
+    this.backToMailList.emit(this.component);
   }
 
   ngOnInit(): void {
@@ -30,4 +31,3 @@ export class MailForm {
     }
   }
 }
-

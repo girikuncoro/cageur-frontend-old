@@ -18,7 +18,8 @@ export class Inbox implements OnInit {
   mailDetailShow: boolean = false;
   mailCalendarShow: boolean = false;
   currentMail: any;
-  currentFolderName: string = 'Inbox';
+  currentFolderName: string = 'Sent Mail';
+  prevComponent: string = 'mailList';
   $el: any;
   repliedMessage: any;
 
@@ -33,8 +34,16 @@ export class Inbox implements OnInit {
     this.changeEmailComponents('mailForm');
   }
 
+  handleMailListBtn(event): void {
+    this.changeEmailComponents('mailList');
+  }
+
   handleCalendarBtn(event): void {
     this.changeEmailComponents('mailCalendar');
+  }
+
+  handleBackBtn(event): void {
+    this.changeEmailComponents(event);
   }
 
   onReplyMail(mail: any): void {
@@ -47,22 +56,27 @@ export class Inbox implements OnInit {
       'mailList': (that): void => {
         that.mailFormShow = that.mailDetailShow = false;
         that.mailListShow = true;
+        that.mailCalendarShow = false;
+        that.prevComponent = componentName;
       },
 
       'mailForm': (that): void => {
         that.mailListShow = that.mailDetailShow = false;
         that.mailFormShow = true;
+        that.mailCalendarShow = false;
       },
 
       'mailDetail': (that): void => {
         that.mailListShow = that.mailFormShow = false;
         that.mailDetailShow = true;
+        that.mailCalendarShow = false;
       },
 
       'mailCalendar': (that): void => {
         that.mailListShow = that.mailDetailShow = false;
         that.mailFormShow = false;
         that.mailCalendarShow = true;
+        that.prevComponent = componentName;
       },
     };
 

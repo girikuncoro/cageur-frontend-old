@@ -1,7 +1,7 @@
 {
-  "name": "Sing",
-  "version": "3.1.1",
-  "description": "Sing Dashboard App",
+  "name": "Cageur",
+  "version": "0.0.1",
+  "description": "Cageur Dashboard App",
   "scripts": {
     "install": "napa",
     "clean": "npm cache clean && rimraf node_modules doc typings coverage dist",
