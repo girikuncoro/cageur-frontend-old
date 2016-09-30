@@ -2,9 +2,12 @@ import {Component} from '@angular/core';
 import {Output, Input} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 
+import {FormsSelect} from '../../forms-select/forms-select';
+
 @Component({
   selector: '[mail-form]',
   template: require('./mail-form.html'),
+  directives: [FormsSelect]
 })
 
 export class MailForm {
@@ -14,7 +17,7 @@ export class MailForm {
 
   sender: string = '';
   subject: string = '';
-  body: string = 'There are no implementations of Wysiwyg editors in Angular 2 version yet. So we hope it will appear soon.';
+  body: string = '';
 
   onToBack(): void {
     this.backToMailList.emit(this.component);

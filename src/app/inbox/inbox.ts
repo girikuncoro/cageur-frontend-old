@@ -3,6 +3,7 @@ import {MailList} from './mail-list/mail-list';
 import {MailForm} from './mail-form/mail-form';
 import {MailDetail} from './mail-detail/mail-detail';
 import {MailCalendar} from './mail-calendar/mail-calendar';
+
 declare var jQuery: any;
 
 @Component({
