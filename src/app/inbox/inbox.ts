@@ -23,6 +23,7 @@ export class Inbox implements OnInit {
   prevComponent: string = 'mailList';
   $el: any;
   repliedMessage: any;
+  sentMessage: any;
 
   constructor(el: ElementRef) {
     this.$el = jQuery(el.nativeElement);
@@ -45,6 +46,11 @@ export class Inbox implements OnInit {
 
   handleBackBtn(event): void {
     this.changeEmailComponents(event);
+  }
+
+  handleSentMsg(event): void {
+    console.log('Sent Msg', event);
+    this.sentMessage = event;
   }
 
   onReplyMail(mail: any): void {

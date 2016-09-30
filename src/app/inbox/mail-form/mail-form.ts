@@ -12,6 +12,7 @@ import {FormsSelect} from '../../forms-select/forms-select';
 
 export class MailForm {
   @Output() backToMailList = new EventEmitter();
+  @Output() sentMsg = new EventEmitter();
   @Input() message: any;
   @Input() component: string;
 
@@ -32,5 +33,15 @@ export class MailForm {
       span.innerHTML = this.message.body;
       this.body = span.innerText;
     }
+  }
+
+  handleSend(): void {
+    // call API to send SMS here
+    this.sentMsg.emit({ sender: this.sender, body: this.body });
+    this.backToMailList.emit(this.component);
+  }
+
+  handleSelect(toGroup: any): void {
+    this.sender = toGroup;
   }
 }

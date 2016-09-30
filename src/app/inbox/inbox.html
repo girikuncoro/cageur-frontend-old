@@ -20,8 +20,8 @@
       <li class="nav-item"><a class="nav-link" (click)="handleCalendarBtn()">Calendar</a></li>
     </ul>
   </div>
-  <div *ngIf="mailListShow" mail-list [folderName]="currentFolderName" (replyMail)="onReplyMail($event)" class="col-lg-9 col-xl-10 col-xs-12"></div>
-  <div *ngIf="mailFormShow" mail-form (backToMailList)="handleBackBtn($event)" [message]="repliedMessage" [component]="prevComponent" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailListShow" mail-list [folderName]="currentFolderName" (replyMail)="onReplyMail($event)" [newMsg]="sentMessage" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailFormShow" mail-form (backToMailList)="handleBackBtn($event)" (sentMsg)="handleSentMsg($event)" [message]="repliedMessage" [component]="prevComponent" class="col-lg-9 col-xl-10 col-xs-12"></div>
   <div *ngIf="mailCalendarShow" mail-calendar (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12 m-t-33"></div>
   <div *ngIf="mailDetailShow" mail-detail (replyMessage)="handleComposeBtn($event)" [mail]="currentMail" (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12"></div>
 </div>
