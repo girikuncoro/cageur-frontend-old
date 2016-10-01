@@ -12,6 +12,7 @@ export class ConfigService {
     /**
      * In-app constants
      */
+    baseUrl: '//localhost:5000',  // for cageur API  service
     settings: {
       colors: {
         'white': '#fff',

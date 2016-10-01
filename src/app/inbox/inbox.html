@@ -2,8 +2,8 @@
   <li>YOU ARE HERE</li>
   <li class="active">SMS</li>
 </ol>
-<div class="alert alert-warning alert-sm pull-right no-margin animated bounceInLeft hide" id="app-alert">
-  <button type="button" class="ml-lg close" data-dismiss="alert" aria-hidden="true">×</button>
+<div *ngIf="alertShow" [ngClass]="{ 'alert-danger': alertDanger, 'alert-success': !alertDanger }" class="alert alert-sm pull-right no-margin animated bounceInLeft hide" id="app-alert">
+  <button type="button" class="ml-lg close" data-dismiss="alert" aria-hidden="true" (click)="hideAlert()">×</button>
   Hey! This is a <span class="fw-semi-bold">real app</span> with CRUD and Search functions. Have fun!
 </div>
 <h1 class="page-title">SMS - <span class="fw-semi-bold">Reminder</span></h1>
@@ -21,7 +21,7 @@
     </ul>
   </div>
   <div *ngIf="mailListShow" mail-list [folderName]="currentFolderName" (replyMail)="onReplyMail($event)" [newMsg]="sentMessage" class="col-lg-9 col-xl-10 col-xs-12"></div>
-  <div *ngIf="mailFormShow" mail-form (backToMailList)="handleBackBtn($event)" (sentMsg)="handleSentMsg($event)" [message]="repliedMessage" [component]="prevComponent" class="col-lg-9 col-xl-10 col-xs-12"></div>
+  <div *ngIf="mailFormShow" mail-form (backToMailList)="handleBackBtn($event)" (validationError)="handleError($event)" (sentMsg)="handleSentMsg($event)" [message]="repliedMessage" [component]="prevComponent" class="col-lg-9 col-xl-10 col-xs-12"></div>
   <div *ngIf="mailCalendarShow" mail-calendar (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12 m-t-33"></div>
   <div *ngIf="mailDetailShow" mail-detail (replyMessage)="handleComposeBtn($event)" [mail]="currentMail" (backToMailList)="changeEmailComponents('mailList')" class="col-lg-9 col-xl-10 col-xs-12"></div>
 </div>

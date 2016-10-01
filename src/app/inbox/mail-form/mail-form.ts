@@ -3,16 +3,23 @@ import {Output, Input} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 
 import {FormsSelect} from '../../forms-select/forms-select';
+import { MailService } from '../services/mail.service';
+import { Observable } from 'rxjs/Rx';
+import { Mail } from '../models/mail';
 
 @Component({
   selector: '[mail-form]',
   template: require('./mail-form.html'),
-  directives: [FormsSelect]
+  directives: [FormsSelect],
+  providers: [MailService]
 })
 
 export class MailForm {
+  constructor(private mailService: MailService) {};
+
   @Output() backToMailList = new EventEmitter();
   @Output() sentMsg = new EventEmitter();
+  @Output() validationError = new EventEmitter();
   @Input() message: any;
   @Input() component: string;
 
@@ -38,7 +45,19 @@ export class MailForm {
   handleSend(): void {
     // call API to send SMS here
     this.sentMsg.emit({ sender: this.sender, body: this.body });
-    this.backToMailList.emit(this.component);
+
+    let mailOps: Observable<Mail[]>;
+    mailOps = this.mailService.sendMail({ group: this.sender, message: this.body });
+    mailOps.subscribe(
+      mails => {
+        console.log(mails);
+        this.backToMailList.emit(this.component);
+      },
+      err => {
+        console.error(err);
+        this.validationError.emit(err);
+      }
+    )
   }
 
   handleSelect(toGroup: any): void {

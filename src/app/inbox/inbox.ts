@@ -14,6 +14,9 @@ declare var jQuery: any;
 })
 
 export class Inbox implements OnInit {
+  alertShow: boolean = true;
+  alertDanger: boolean = false;
+
   mailListShow: boolean = true;
   mailFormShow: boolean = false;
   mailDetailShow: boolean = false;
@@ -48,14 +51,26 @@ export class Inbox implements OnInit {
     this.changeEmailComponents(event);
   }
 
+  handleError(event): void {
+    console.log('Error', event);
+    this.alertShow = true;
+    this.alertDanger = true;
+  }
+
   handleSentMsg(event): void {
     console.log('Sent Msg', event);
     this.sentMessage = event;
+    this.alertShow = true;
+    this.alertDanger = false;
   }
 
   onReplyMail(mail: any): void {
     this.currentMail = mail;
     this.changeEmailComponents('mailDetail');
+  }
+
+  hideAlert(): void {
+    this.alertShow = false;
   }
 
   changeEmailComponents(componentName: string): void {
