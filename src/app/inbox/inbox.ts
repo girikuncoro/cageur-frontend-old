@@ -3,6 +3,7 @@ import {MailList} from './mail-list/mail-list';
 import {MailForm} from './mail-form/mail-form';
 import {MailDetail} from './mail-detail/mail-detail';
 import {MailCalendar} from './mail-calendar/mail-calendar';
+
 declare var jQuery: any;
 
 @Component({
@@ -13,6 +14,10 @@ declare var jQuery: any;
 })
 
 export class Inbox implements OnInit {
+  alertShow: boolean = false;
+  alertDanger: boolean = false;
+  alertMessage: string;
+
   mailListShow: boolean = true;
   mailFormShow: boolean = false;
   mailDetailShow: boolean = false;
@@ -22,6 +27,7 @@ export class Inbox implements OnInit {
   prevComponent: string = 'mailList';
   $el: any;
   repliedMessage: any;
+  sentMessage: any;
 
   constructor(el: ElementRef) {
     this.$el = jQuery(el.nativeElement);
@@ -46,9 +52,27 @@ export class Inbox implements OnInit {
     this.changeEmailComponents(event);
   }
 
+  handleError(event): void {
+    console.log('Error', event);
+    this.alertShow = true;
+    this.alertDanger = true;
+    this.alertMessage = event;
+  }
+
+  handleSentMsg(event): void {
+    console.log('Sent Msg', event);
+    this.sentMessage = event;
+    this.alertShow = true;
+    this.alertDanger = false;
+  }
+
   onReplyMail(mail: any): void {
     this.currentMail = mail;
     this.changeEmailComponents('mailDetail');
+  }
+
+  hideAlert(): void {
+    this.alertShow = false;
   }
 
   changeEmailComponents(componentName: string): void {

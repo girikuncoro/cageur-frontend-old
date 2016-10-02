@@ -4,6 +4,7 @@ import {EventEmitter, ElementRef} from '@angular/core';
 import {on} from 'cluster';
 import {FoldersPipe} from './pipes/folders-pipe';
 import {SearchPipe} from './pipes/search-pipe';
+import {ShortenPipe} from './pipes/shorten-pipe';
 declare var jQuery: any;
 
 const Mails = [
@@ -16,7 +17,7 @@ const Mails = [
     'attachment': true,
     'unread': true,
     'starred': true,
-    'folderId': 1,
+    'folderId': 2,
     'selected': false,
     'attachments': ['assets/images/pictures/1.jpg', 'assets/images/pictures/2.jpg'],
     'body': '<p>Projecting surrounded literature yet delightful alteration but bed men. Open are from long why cold. If must snug by upon sang loud left. As me do preference entreaties compliment motionless ye literature. Day behaviour explained law remainder.</p>    <p><strong>On then sake home</strong> is am leaf. Of suspicion do departure at extremely he believing. Do know said mind do rent they oh hope of. General enquire picture letters garrets on offices of no on.</p> <p>All the best,</p> <p>Vitaut the Great, CEO, <br>Fooby Inc.</p>'},
@@ -29,7 +30,7 @@ const Mails = [
     'unread': true,
     'attachment': true,
     'timestamp': 1376508566000,
-    'folderId': 1,
+    'folderId': 2,
     'selected': false,
     'attachments': ['assets/images/pictures/3.jpg'],
     'body': '<h1>THIS IS HTML!!!!</h1>' },
@@ -42,7 +43,7 @@ const Mails = [
     'selected': false,
     'unread': false,
     'timestamp': 1375877213000,
-    'folderId': 1 },
+    'folderId': 2 },
 
   { 'id': 4,
     'sender': 'Twitter',
@@ -52,7 +53,7 @@ const Mails = [
     'unread': true,
     'selected': false,
     'timestamp': 1375261974000,
-    'folderId': 1 },
+    'folderId': 2 },
 
   { 'id': 5,
     'sender': 'LinkedIn',
@@ -71,7 +72,7 @@ const Mails = [
     'unread': false,
     'selected': false,
     'timestamp': 1373516566000,
-    'folderId': 1},
+    'folderId': 2},
 
   { 'id': 7,
     'sender': 'Nikola Foley',
@@ -83,7 +84,7 @@ const Mails = [
     'unread': false,
     'selected': false,
     'timestamp': 1374508566000,
-    'folderId': 1 },
+    'folderId': 2 },
 
   { 'id': 8,
     'sender': 'Ernst Hardy',
@@ -92,7 +93,7 @@ const Mails = [
     'selected': false,
     'unread': false,
     'timestamp': 1373877213000,
-    'folderId': 1 },
+    'folderId': 2 },
 
   { 'id': 9,
     'sender': 'Lubbert Fuller',
@@ -113,7 +114,7 @@ const Mails = [
     'selected': false,
     'unread': false,
     'timestamp': 1376508566000,
-    'folderId': 3 },
+    'folderId': 2 },
 
   { 'id': 12,
     'sender': 'Ladislao Roche',
@@ -144,19 +145,21 @@ const Mails = [
     'selected': false,
     'unread': false,
     'timestamp': 1373634231000,
-    'folderId': 3 }
+    'folderId': 2 }
 ];
 
 @Component({
   selector: '[mail-list]',
   template: require('./mail-list.html'),
   styles: [require('./mail-list.scss')],
-  pipes: [FoldersPipe, SearchPipe]
+  pipes: [FoldersPipe, SearchPipe, ShortenPipe]
 })
 
 export class MailList implements OnInit, OnChanges {
   @Output() replyMail = new EventEmitter();
   @Input() folderName: any;
+  @Input() newMsg: any;
+
   mails = Mails;
   $el: any;
   $toggleAll: any;
@@ -242,9 +245,35 @@ export class MailList implements OnInit, OnChanges {
         this.toggleAll(false);
       }
     }
+    if ('newMsg' in event) {
+      if (event.newMsg.currentValue instanceof Object) {
+        console.log('Added', event.newMsg);
+        this.addEmail(event.newMsg.currentValue);
+      }
+    }
   }
 
   changeStarStatus(mail): void {
     mail.starred = !mail.starred;
+  }
+
+  addEmail(mail: any): void {
+    const msg = {
+      'id': 15,
+      'sender': mail.sender,
+      'subject': mail.body,
+      'date': 'Jul 28',
+      'selected': false,
+      'unread': false,
+      'timestamp': 1373634231000,
+      'folderId': 2
+    };
+    if (!this.sameMessage(msg, this.mails[0])) {
+      this.mails.unshift(msg);
+    }
+  }
+
+  sameMessage(msg1: any, msg2: any) {
+    return msg1.id === msg2.id && msg1.sender === msg2.sender && msg1.subject === msg2.subject && msg1.timestamp === msg2.timestamp;
   }
 }

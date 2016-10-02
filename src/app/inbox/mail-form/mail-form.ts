@@ -2,19 +2,30 @@ import {Component} from '@angular/core';
 import {Output, Input} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 
+import {FormsSelect} from '../../forms-select/forms-select';
+import { MailService } from '../services/mail.service';
+import { Observable } from 'rxjs/Rx';
+import { Mail } from '../models/mail';
+
 @Component({
   selector: '[mail-form]',
   template: require('./mail-form.html'),
+  directives: [FormsSelect],
+  providers: [MailService]
 })
 
 export class MailForm {
+  constructor(private mailService: MailService) {};
+
   @Output() backToMailList = new EventEmitter();
+  @Output() sentMsg = new EventEmitter();
+  @Output() validationError = new EventEmitter();
   @Input() message: any;
   @Input() component: string;
 
   sender: string = '';
   subject: string = '';
-  body: string = 'There are no implementations of Wysiwyg editors in Angular 2 version yet. So we hope it will appear soon.';
+  body: string = '';
 
   onToBack(): void {
     this.backToMailList.emit(this.component);
@@ -29,5 +40,34 @@ export class MailForm {
       span.innerHTML = this.message.body;
       this.body = span.innerText;
     }
+  }
+
+  handleSend(): void {
+    if (this.sender === '') {
+      this.validationError.emit('Group cannot be empty');
+      return;
+    }
+    if (this.body === '') {
+      this.validationError.emit('Message cannot be empty');
+      return;
+    }
+
+    let mailOps: Observable<Mail[]>;
+    mailOps = this.mailService.sendMail({ group: this.sender, message: this.body });
+    mailOps.subscribe(
+      mails => {
+        console.log(mails);
+        this.sentMsg.emit({ sender: this.sender, body: this.body });
+        this.backToMailList.emit(this.component);
+      },
+      err => {
+        console.error(err);
+        this.validationError.emit(err);
+      }
+    )
+  }
+
+  handleSelect(toGroup: any): void {
+    this.sender = toGroup;
   }
 }
