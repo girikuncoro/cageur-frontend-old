@@ -2,9 +2,12 @@
   <li>YOU ARE HERE</li>
   <li class="active">SMS</li>
 </ol>
-<div *ngIf="alertShow" [ngClass]="{ 'alert-danger': alertDanger, 'alert-success': !alertDanger }" class="alert alert-sm pull-right no-margin animated bounceInLeft hide" id="app-alert">
+<div *ngIf="alertShow" [ngClass]="{ 'alert-danger': alertDanger, 'alert-success': !alertDanger }" class="alert alert-sm pull-right no-margin animated bounceInLeft" id="app-alert">
   <button type="button" class="ml-lg close" data-dismiss="alert" aria-hidden="true" (click)="hideAlert()">×</button>
-  Hey! This is a <span class="fw-semi-bold">real app</span> with CRUD and Search functions. Have fun!
+  <!-- Hey! This is a <span class="fw-semi-bold">real app</span> with CRUD and Search functions. Have fun! -->
+  <span *ngIf="alertDanger"><span class="fw-semi-bold">Oops, error!</span> {{ alertMessage }}</span>
+  <span *ngIf="!alertDanger"><span class="fw-semi-bold">Awesome!</span> Message has been sent successfully</span>
+
 </div>
 <h1 class="page-title">SMS - <span class="fw-semi-bold">Reminder</span></h1>
 <div class="row" sn-inbox-app>

@@ -14,8 +14,9 @@ declare var jQuery: any;
 })
 
 export class Inbox implements OnInit {
-  alertShow: boolean = true;
+  alertShow: boolean = false;
   alertDanger: boolean = false;
+  alertMessage: string;
 
   mailListShow: boolean = true;
   mailFormShow: boolean = false;
@@ -55,6 +56,7 @@ export class Inbox implements OnInit {
     console.log('Error', event);
     this.alertShow = true;
     this.alertDanger = true;
+    this.alertMessage = event;
   }
 
   handleSentMsg(event): void {

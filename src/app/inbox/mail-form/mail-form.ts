@@ -43,14 +43,21 @@ export class MailForm {
   }
 
   handleSend(): void {
-    // call API to send SMS here
-    this.sentMsg.emit({ sender: this.sender, body: this.body });
+    if (this.sender === '') {
+      this.validationError.emit('Group cannot be empty');
+      return;
+    }
+    if (this.body === '') {
+      this.validationError.emit('Message cannot be empty');
+      return;
+    }
 
     let mailOps: Observable<Mail[]>;
     mailOps = this.mailService.sendMail({ group: this.sender, message: this.body });
     mailOps.subscribe(
       mails => {
         console.log(mails);
+        this.sentMsg.emit({ sender: this.sender, body: this.body });
         this.backToMailList.emit(this.component);
       },
       err => {
