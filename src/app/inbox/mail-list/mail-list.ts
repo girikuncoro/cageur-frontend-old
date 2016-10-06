@@ -9,6 +9,7 @@ declare var jQuery: any;
 
 const Mails = [
   { id: 1,
+    'schedule': 'once a day',
     'sender': 'Philip Horbacheuski',
     'senderMail': 'philip.horbacheuski@example.com',
     'subject': 'Hi, Welcome to Google Mail',
@@ -53,7 +54,8 @@ const Mails = [
     'unread': true,
     'selected': false,
     'timestamp': 1375261974000,
-    'folderId': 2 },
+    'folderId': 2,
+    'schedule': 'once a day'},
 
   { 'id': 5,
     'sender': 'LinkedIn',

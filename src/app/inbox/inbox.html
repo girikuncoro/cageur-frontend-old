@@ -14,12 +14,8 @@
   <div class="col-lg-3 col-xl-2 col-xs-12">
     <a class="btn btn-danger btn-block" id="compose-btn" (click)="handleComposeBtn()">Compose</a>
     <ul class="nav nav-pills nav-stacked nav-email-folders mt" id="folders-list">
-      <li class="nav-item active">
-        <a class="nav-link" (click)="handleMailListBtn()">
-          <span class="label label-pill label-default pull-xs-right">2</span>
-          Sent SMS
-        </a>
-      </li>
+      <li class="nav-item active"><a class="nav-link" (click)="handleMailListBtn('Sent Message')">Sent Message</a></li>
+      <li class="nav-item"><a class="nav-link" (click)="handleMailListBtn('Scheduled')">Scheduled</a></li>
       <li class="nav-item"><a class="nav-link" (click)="handleCalendarBtn()">Calendar</a></li>
     </ul>
   </div>
