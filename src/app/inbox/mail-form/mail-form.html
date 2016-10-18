@@ -16,10 +16,42 @@
           <textarea rows="10" class="form-control" id="wysiwyg" placeholder="Message" [(ngModel)]="body">{{ body }}</textarea>
         </div>
         <div class="clearfix">
+          <div class="btn-toolbar pull-left">
+            <button (click)="handleSchedule()" type="button" id="compose-schedule-button" class="btn btn-gray">&nbsp;&nbsp;Schedule&nbsp;&nbsp;</button>
+          </div>
           <div class="btn-toolbar pull-right">
-            <button (click)="handleSend()" type="submit" id="compose-send-button" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</button>
+            <button (click)="handleSend()" type="button" id="compose-send-button" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</button>
           </div>
         </div>
     </div>
+    <div class="compose-view" id="compose-schedule">
+      <div class="widget-body">
+          <form role="form">
+            <fieldset>
+              <legend></legend>
+              <div class="form-group">
+                <label for="datepicker2i">
+                  Choose start date and time
+                </label>
+                <datetime
+                  [datepicker]="{ autoclose: true, format: 'D, d MM yyyy' }"
+                  [timepicker]="{ showMeridian: false, minuteStep: 1, defaultTime: 'current' }"
+                  id="datetimepicker2i" [(ngModel)]="schedule">
+                </datetime>
+              </div>
+              <div class="form-group">
+                <label for="repeat">
+                  Repeat daily or monthly
+                </label>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="clearfix">
+          <div class="btn-toolbar pull-right">
+            <button (click)="handleSave()" type="button" id="compose-save-button" class="btn btn-danger">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+          </div>
+        </div>
+      </div>
   </div>
 </section>

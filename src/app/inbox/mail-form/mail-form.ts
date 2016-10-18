@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import {Output, Input} from '@angular/core';
 import {EventEmitter} from '@angular/core';
 
@@ -7,11 +7,21 @@ import { MailService } from '../services/mail.service';
 import { Observable } from 'rxjs/Rx';
 import { Mail } from '../models/mail';
 
+import { NKDatetime } from 'ng2-datetime/ng2-datetime';
+import { Widget } from '../../core/widget/widget';
+import {HolderJs} from '../../components/holderjs/holderjs';
+import {DropzoneDemo} from '../../components/dropzone/dropzone';
+import {Autosize} from 'angular2-autosize/angular2-autosize';
+import {AlertComponent} from 'ng2-bootstrap/components/alert';
+declare var jQuery: any;
+
 @Component({
   selector: '[mail-form]',
   template: require('./mail-form.html'),
-  directives: [FormsSelect],
-  providers: [MailService]
+  directives: [FormsSelect, Widget, DropzoneDemo, HolderJs, NKDatetime, Autosize, AlertComponent],
+  providers: [MailService],
+  encapsulation: ViewEncapsulation.None,
+  styles: [require('../../forms-elements/forms-elements.scss')]
 })
 
 export class MailForm {
@@ -40,6 +50,7 @@ export class MailForm {
       span.innerHTML = this.message.body;
       this.body = span.innerText;
     }
+    jQuery('.selectpicker').selectpicker();
   }
 
   handleSend(): void {
