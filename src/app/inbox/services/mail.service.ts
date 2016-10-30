@@ -11,12 +11,14 @@ import 'rxjs/add/operator/catch';
 export class MailService {
     private baseUrl: string;
     private mailUrl: string;
+    private scheduleUrl: string;
     private config: any;
 
     constructor(private http : Http, private conf : ConfigService) {
       this.config = conf.getConfig();
       this.baseUrl = this.config.baseUrl;
       this.mailUrl = `${this.baseUrl}/api/v1/sms/broadcast/group`;
+      this.scheduleUrl = `${this.baseUrl}/api/v1/sms/schedule`;
     }
 
     sendMail(body: Object): Observable<Mail[]> {
@@ -24,6 +26,15 @@ export class MailService {
       let options = new RequestOptions({ headers: this.getHeaders() });
 
       return this.http.post(this.mailUrl, body, options)
+        .map((res: Response) => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    scheduleMail(body: Object): Observable<Mail[]> {
+      let bodyString = JSON.stringify(body);
+      let options = new RequestOptions({ headers: this.getHeaders() });
+
+      return this.http.post(this.scheduleUrl, body, options)
         .map((res: Response) => res.json())
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }

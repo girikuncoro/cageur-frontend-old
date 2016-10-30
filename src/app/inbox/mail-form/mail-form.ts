@@ -37,6 +37,10 @@ export class MailForm {
   subject: string = '';
   body: string = '';
 
+  scheduled: boolean = false;
+  date: string;
+  period: string = 'once';
+
   onToBack(): void {
     this.backToMailList.emit(this.component);
   }
@@ -53,10 +57,14 @@ export class MailForm {
     jQuery('.selectpicker').selectpicker();
   }
 
-  handleSend(): void {
+  sendMessage(object: any, schedule: boolean): void {
     // call API to send SMS here
     let mailOps: Observable<Mail[]>;
-    mailOps = this.mailService.sendMail({ group: this.sender, message: this.body });
+    if (schedule) {
+      mailOps = this.mailService.scheduleMail(object);
+    } else {
+      mailOps = this.mailService.sendMail(object);
+    }
 
     mailOps.subscribe(
       mails => {
@@ -71,7 +79,45 @@ export class MailForm {
     )
   }
 
+  handleSend(): void {
+    // validate in client
+    if (this.sender === '') {
+      return this.validationError.emit('Group is empty');
+    }
+    if (this.body === '') {
+      return this.validationError.emit('Message is empty');
+    }
+    this.sendMessage({ group: this.sender, message: this.body }, false);
+  }
+
   handleSelect(toGroup: any): void {
     this.sender = toGroup;
+  }
+
+  handleSchedule(): void {
+    this.scheduled = !this.scheduled;
+  }
+
+  handleSave(): void {
+    if (this.sender === '') {
+      return this.validationError.emit('Group is empty');
+    }
+    if (this.body === '') {
+      return this.validationError.emit('Message is empty');
+    }
+    if (this.period === '') {
+      return this.validationError.emit('Choose one time, daily or monthly');
+    }
+    if (!this.date) {
+      return this.validationError.emit('Choose date and time for sms schedule');
+    }
+    const req = {
+      message: this.body,
+      groupId: this.sender,
+      timeSchedules: [Date.parse(this.date)/1000],
+      frequency: this.period,
+      timeStart: Date.parse(this.date)/1000,
+    };
+    this.sendMessage(req, true);
   }
 }
