@@ -16,10 +16,63 @@
           <textarea rows="10" class="form-control" id="wysiwyg" placeholder="Message" [(ngModel)]="body">{{ body }}</textarea>
         </div>
         <div class="clearfix">
-          <div class="btn-toolbar pull-right">
-            <button (click)="handleSend()" type="submit" id="compose-send-button" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Send&nbsp;&nbsp;&nbsp;</button>
+          <div class="btn-toolbar pull-left">
+            <button (click)="handleSchedule()" [ngClass]="{'active': scheduled}" type="button" id="compose-schedule-button" class="btn btn-gray">&nbsp;&nbsp;Schedule&nbsp;&nbsp;</button>
+          </div>
+          <div *ngIf="!scheduled" class="btn-toolbar pull-right">
+            <button (click)="handleSend()" type="button" id="compose-send-button" class="btn btn-danger">&nbsp;&nbsp;&nbsp;Send Now&nbsp;&nbsp;&nbsp;</button>
           </div>
         </div>
     </div>
+    <div *ngIf="scheduled" class="compose-view" id="compose-schedule">
+      <div class="widget-body">
+          <form role="form">
+            <fieldset>
+              <legend></legend>
+              <div class="form-group">
+                <label for="datepicker2i">
+                  Choose start date and time
+                </label>
+                <datetime
+                  [datepicker]="{ autoclose: true, format: 'D, d MM yyyy', todayHighlight: true }"
+                  [timepicker]="{ showMeridian: false, minuteStep: 1, defaultTime: '', maxHours: 24 }"
+                  id="datetimepicker2i" [(ngModel)]="date">
+                </datetime>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  Choose one time, daily or monthly
+                </label>
+                <div class="abc-radio">
+                  <input (click)="period='once'" class="radio-primary" type="radio" name="period" id="radio1" value="once" checked>
+                  <label for="radio1">
+                    One time
+                  </label>
+                </div>
+                <div class="abc-radio">
+                  <input (click)="period='daily'" class="radio-primary" type="radio" name="period" id="radio2" value="daily">
+                  <label for="radio2">
+                    Daily
+                  </label>
+                </div>
+                <div class="abc-radio">
+                  <input (click)="period='monthly'" class="radio-primary" type="radio" name="period" id="radio3" value="monthly">
+                  <label for="radio3">
+                    Monthly
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+          {{ date }}
+          {{ period }}
+        </div>
+        <div class="clearfix">
+          <div class="btn-toolbar pull-right">
+            <button (click)="handleSave()" type="button" id="compose-save-button" class="btn btn-danger">&nbsp;&nbsp;Save&nbsp;&nbsp;</button>
+          </div>
+        </div>
+      </div>
   </div>
 </section>

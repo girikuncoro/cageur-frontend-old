@@ -1,4 +1,4 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component} from '@angular/core';
 import {Widget} from '../core/widget/widget';
 import {DropzoneDemo} from '../components/dropzone/dropzone';
 import {HolderJs} from '../components/holderjs/holderjs';
@@ -11,7 +11,7 @@ declare var jQuery: any;
   selector: '[forms-elements]',
   template: require('./forms-elements.html'),
   directives: [Widget, DropzoneDemo, HolderJs, NKDatetime, Autosize, AlertComponent],
-  encapsulation: ViewEncapsulation.None,
+  // encapsulation: ViewEncapsulation.None,
   styles: [require('./forms-elements.scss')]
 })
 export class FormsElements {

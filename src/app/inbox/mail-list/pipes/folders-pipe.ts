@@ -1,9 +1,9 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 const Folders = [
-  {'name': 'Inbox', 'order': 0, 'id': 1, 'unread': 2},
-  {'name': 'Sent Mail', 'order': 6, 'id': 2, 'unread': 0},
-  {'name': 'Draft', 'order': 7, 'id': 3, 'unread': 3},
+  {'name': 'Sent Message', 'order': 0, 'id': 1, 'unread': 2},
+  {'name': 'Scheduled', 'order': 6, 'id': 2, 'unread': 0},
+  {'name': 'Inbox', 'order': 7, 'id': 3, 'unread': 3},
   {'name': 'Trash', 'order': 8, 'id': 4, 'unread': 0}
 ];
 

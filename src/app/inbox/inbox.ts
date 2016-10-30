@@ -23,7 +23,7 @@ export class Inbox implements OnInit {
   mailDetailShow: boolean = false;
   mailCalendarShow: boolean = false;
   currentMail: any;
-  currentFolderName: string = 'Sent Mail';
+  currentFolderName: string = 'Sent Message';
   prevComponent: string = 'mailList';
   $el: any;
   repliedMessage: any;
@@ -40,8 +40,9 @@ export class Inbox implements OnInit {
     this.changeEmailComponents('mailForm');
   }
 
-  handleMailListBtn(event): void {
+  handleMailListBtn(folder): void {
     this.changeEmailComponents('mailList');
+    this.setFolderName(folder);
   }
 
   handleCalendarBtn(event): void {
